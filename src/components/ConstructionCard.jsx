@@ -1,6 +1,16 @@
 import './ConstructionCard.css'
 
-function ConstructionCard({ value, action, actionData, faceDown = false, onClick }) {
+function ConstructionCard({
+  value,
+  action,
+  actionData,
+  faceDown = false,
+  onClick,
+  numberSelected = false,
+  actionSelected = false,
+  onNumberClick,
+  onActionClick
+}) {
   const renderIcon = () => {
     if (!actionData?.icon) return null
 
@@ -10,6 +20,16 @@ function ConstructionCard({ value, action, actionData, faceDown = false, onClick
     }
 
     return <i className={actionData.icon}></i>
+  }
+
+  const handleNumberClick = (e) => {
+    e.stopPropagation()
+    onNumberClick?.()
+  }
+
+  const handleActionClick = (e) => {
+    e.stopPropagation()
+    onActionClick?.()
   }
 
   return (
@@ -25,9 +45,17 @@ function ConstructionCard({ value, action, actionData, faceDown = false, onClick
         </div>
       ) : (
         <div className={`card-front action-${action}`}>
-          <span className="card-value">{value}</span>
+          <span
+            className={`card-value ${numberSelected ? 'selected' : ''}`}
+            onClick={handleNumberClick}
+          >
+            {value}
+          </span>
           {actionData && (
-            <div className="card-action">
+            <div
+              className={`card-action ${actionSelected ? 'selected' : ''}`}
+              onClick={handleActionClick}
+            >
               {renderIcon()}
             </div>
           )}

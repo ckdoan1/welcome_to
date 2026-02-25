@@ -16,10 +16,10 @@ const ROW3_POOLS = [1, 6, 10] // 2nd, 7th, 11th
 function App() {
   // State for row 1 (10 houses)
   const [row1, setRow1] = useState(
-    Array(10).fill(null).map(() => ({
+    Array(10).fill(null).map((_, index) => ({
       number: '',
-      leftFenceActive: false,
-      rightFenceActive: false,
+      leftFenceActive: index === 0, // First fence always active
+      rightFenceActive: index === 9, // Last fence always active
       poolActive: false,
       houseActive: false
     }))
@@ -27,10 +27,10 @@ function App() {
 
   // State for row 2 (11 houses)
   const [row2, setRow2] = useState(
-    Array(11).fill(null).map(() => ({
+    Array(11).fill(null).map((_, index) => ({
       number: '',
-      leftFenceActive: false,
-      rightFenceActive: false,
+      leftFenceActive: index === 0, // First fence always active
+      rightFenceActive: index === 10, // Last fence always active
       poolActive: false,
       houseActive: false
     }))
@@ -38,10 +38,10 @@ function App() {
 
   // State for row 3 (12 houses)
   const [row3, setRow3] = useState(
-    Array(12).fill(null).map(() => ({
+    Array(12).fill(null).map((_, index) => ({
       number: '',
-      leftFenceActive: false,
-      rightFenceActive: false,
+      leftFenceActive: index === 0, // First fence always active
+      rightFenceActive: index === 11, // Last fence always active
       poolActive: false,
       houseActive: false
     }))
@@ -83,6 +83,7 @@ function App() {
   const [deck, setDeck] = useState(() => createShuffledDeck())
   const [currentCards, setCurrentCards] = useState([])
   const [soloActivated, setSoloActivated] = useState(false)
+  const [cardSelections, setCardSelections] = useState({})
 
   const drawThreeCards = () => {
     // Shuffle the deck and draw 3 cards
@@ -97,12 +98,27 @@ function App() {
 
     setCurrentCards(drawn)
     setDeck(remaining)
+    setCardSelections({}) // Reset selections when new cards are drawn
   }
 
-  const resetDeck = () => {
-    setDeck(createShuffledDeck())
-    setCurrentCards([])
-    setSoloActivated(false)
+  const toggleCardNumber = (cardId) => {
+    setCardSelections(prev => ({
+      ...prev,
+      [cardId]: {
+        ...prev[cardId],
+        numberSelected: !prev[cardId]?.numberSelected
+      }
+    }))
+  }
+
+  const toggleCardAction = (cardId) => {
+    setCardSelections(prev => ({
+      ...prev,
+      [cardId]: {
+        ...prev[cardId],
+        actionSelected: !prev[cardId]?.actionSelected
+      }
+    }))
   }
 
   // Objective cards
@@ -149,7 +165,6 @@ function App() {
               placeholder=" "
             />
           </div>
-          <button className="reset-btn" onClick={resetDeck}>New Game</button>
         </div>
 
         <div className="cards-row">
@@ -173,6 +188,10 @@ function App() {
                       value={card.value}
                       action={card.action}
                       actionData={card.actionData}
+                      numberSelected={cardSelections[card.id]?.numberSelected}
+                      actionSelected={cardSelections[card.id]?.actionSelected}
+                      onNumberClick={() => toggleCardNumber(card.id)}
+                      onActionClick={() => toggleCardAction(card.id)}
                     />
                   ))
                 ) : (
