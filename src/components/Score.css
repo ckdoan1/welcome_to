@@ -1,0 +1,167 @@
+.score-container {
+  display: flex;
+  gap: 1rem;
+  background: white;
+  border-radius: 16px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.04);
+  padding: 1rem 1.5rem;
+  width: 100%;
+}
+
+.score-section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+}
+
+.score-inputs {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  background: #f5f0e8;
+  padding: 10px;
+  border-radius: 8px;
+  border: 2px solid #d4c4b0;
+  height: 160px;
+  justify-content: center;
+  box-sizing: border-box;
+}
+
+.score-input-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.score-label {
+  font-family: 'Outfit', sans-serif;
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: #92400e;
+  text-transform: uppercase;
+  min-width: 24px;
+}
+
+.score-label.parks {
+  color: #16a34a;
+}
+
+.score-inputs.parks {
+  background: #dcfce7;
+  border-color: #86efac;
+}
+
+.score-total-wrapper.parks {
+  background: #bbf7d0;
+  border-color: #86efac;
+}
+
+.score-inputs.pools {
+  background: #dbeafe;
+  border-color: #93c5fd;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-content: center;
+  max-width: 180px;
+  height: 160px;
+  box-sizing: border-box;
+}
+
+.pool-score-display {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  border: 2px solid #2563eb;
+  background: white;
+  font-family: 'Outfit', sans-serif;
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: #2563eb;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s ease;
+}
+
+.pool-score-display.active {
+  background: #2563eb;
+  color: white;
+}
+
+.score-total-wrapper.pools {
+  background: #bfdbfe;
+  border-color: #93c5fd;
+}
+
+.score-input {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  border: 2px solid #d4c4b0;
+  background: white;
+  font-family: 'Outfit', sans-serif;
+  font-size: 1rem;
+  font-weight: 600;
+  text-align: center;
+  color: #1a1a2e;
+  outline: none;
+  transition: border-color 0.2s ease;
+}
+
+.score-input:focus {
+  border-color: #ff6b5b;
+}
+
+.score-input::placeholder {
+  color: #ccc;
+}
+
+.score-display {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  border: 2px solid #16a34a;
+  background: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.score-value {
+  font-family: 'Outfit', sans-serif;
+  font-size: 1rem;
+  font-weight: 600;
+  color: #16a34a;
+}
+
+.score-total-wrapper {
+  background: #e8e0d5;
+  padding: 10px;
+  border-radius: 8px;
+  border: 2px solid #d4c4b0;
+  min-height: 60px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.score-total {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  border: 2px solid #1a1a2e;
+  background: #1a1a2e;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.total-value {
+  font-family: 'Outfit', sans-serif;
+  font-size: 1rem;
+  font-weight: 700;
+  color: white;
+}
+

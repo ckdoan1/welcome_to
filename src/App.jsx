@@ -4,6 +4,7 @@ import HouseLot from './components/HouseLot'
 import ConstructionCard from './components/ConstructionCard'
 import ObjectiveCard from './components/ObjectiveCard'
 import Parks from './components/Parks'
+import Score from './components/Score'
 import { createShuffledDeck } from './data/constructionCards'
 import { getRandomObjectives, getDeckInfo } from './data/objectiveCards'
 
@@ -267,6 +268,17 @@ function App() {
             ))}
           </div>
         </div>
+
+        <Score
+          row1Parks={row1Parks}
+          row2Parks={row2Parks}
+          row3Parks={row3Parks}
+          activePools={
+            row1.filter(h => h.poolActive).length +
+            row2.filter(h => h.poolActive).length +
+            row3.filter(h => h.poolActive).length
+          }
+        />
       </div>
     </div>
   )
