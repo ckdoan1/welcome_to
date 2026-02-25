@@ -1,0 +1,58 @@
+.parks {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 0;
+  padding: 8px 12px;
+}
+
+.parks-buttons {
+  display: flex;
+  gap: 8px;
+}
+
+.park-button {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  border: 2px solid #16a34a;
+  background: white;
+  color: #16a34a;
+  font-family: 'Outfit', sans-serif;
+  font-size: 0.9rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.park-button:hover {
+  background: #dcfce7;
+}
+
+.park-button.active {
+  background: #16a34a;
+  color: white;
+}
+
+.park-button.active:hover {
+  background: #15803d;
+}
+
+.parks-final {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  border: none;
+  background: transparent;
+  color: #16a34a;
+  font-family: 'Outfit', sans-serif;
+  font-size: 0.9rem;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
