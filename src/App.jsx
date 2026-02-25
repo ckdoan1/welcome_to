@@ -2,8 +2,10 @@ import { useState } from 'react'
 import './App.css'
 import HouseLot from './components/HouseLot'
 import ConstructionCard from './components/ConstructionCard'
+import ObjectiveCard from './components/ObjectiveCard'
 import Parks from './components/Parks'
 import { createShuffledDeck } from './data/constructionCards'
+import { getRandomObjectives, getDeckInfo } from './data/objectiveCards'
 
 // Houses with pool option (0-indexed)
 const ROW1_POOLS = [2, 6, 7] // 3rd, 7th, 8th
@@ -92,6 +94,13 @@ function App() {
     setCurrentCards([])
   }
 
+  // Objective cards
+  const [objectives, setObjectives] = useState(() => getRandomObjectives())
+
+  const pickNewObjectives = () => {
+    setObjectives(getRandomObjectives())
+  }
+
   const updateRow1House = (index, field, value) => {
     setRow1(prev => prev.map((house, i) =>
       i === index ? { ...house, [field]: value } : house
@@ -116,7 +125,7 @@ function App() {
         <div className="glow-orb"></div>
         <div className="glow-orb secondary"></div>
 
-        <div className="top-bar">
+        <div className="header-row">
           <div className="title-section">
             <h1 className="welcome-title">
               <span className="wave"></span> Welcome to
@@ -129,7 +138,10 @@ function App() {
               placeholder=" "
             />
           </div>
+          <button className="reset-btn" onClick={resetDeck}>New Game</button>
+        </div>
 
+        <div className="cards-row">
           <div className="card-section">
             <div className="deck-area">
               <p className="deck-count">Deck: {deck.length} cards</p>
@@ -138,7 +150,6 @@ function App() {
               ) : (
                 <p className="deck-empty">End of Game</p>
               )}
-              <button className="reset-btn" onClick={resetDeck}>Reset Deck</button>
             </div>
 
             <div className="drawn-cards">
@@ -161,6 +172,20 @@ function App() {
                   </>
                 )}
               </div>
+            </div>
+          </div>
+
+          <div className="objectives-section">
+            <div className="objectives-header">
+              <p className="objectives-label">Objective Cards:</p>
+              <button className="new-objectives-btn" onClick={pickNewObjectives}>
+                New Objectives
+              </button>
+            </div>
+            <div className="objectives-display">
+              <ObjectiveCard card={objectives.n1} deckInfo={getDeckInfo('n1')} />
+              <ObjectiveCard card={objectives.n2} deckInfo={getDeckInfo('n2')} />
+              <ObjectiveCard card={objectives.n3} deckInfo={getDeckInfo('n3')} />
             </div>
           </div>
         </div>

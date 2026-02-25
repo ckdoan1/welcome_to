@@ -79,6 +79,9 @@
 .action-bis .card-action { color: #dc2626; }
 .action-bis { border-color: #dc2626; }
 
+.action-solo .card-action { color: #ca8a04; }
+.action-solo { border-color: #ca8a04; }
+
 .card-back {
   width: 100%;
   height: 100%;

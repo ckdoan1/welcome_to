@@ -57,6 +57,12 @@ const ACTIONS = {
     description: 'Duplicate a number (costs points at end)',
     count: 10,
   },
+  solo: {
+    name: 'Solo',
+    icon: 'fa-solid fa-house-circle-check',
+    description: 'Solo card',
+    count: 0, // Not part of regular action distribution
+  },
 }
 
 // Generate array of actions based on distribution
@@ -97,6 +103,14 @@ function generateDeck() {
       })
       actionIndex++
     }
+  })
+
+  // Add the Solo card
+  deck.push({
+    id: `card-solo-${Date.now()}`,
+    value: 0,
+    action: 'solo',
+    actionData: ACTIONS.solo,
   })
 
   return deck
