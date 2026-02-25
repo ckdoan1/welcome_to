@@ -1,0 +1,135 @@
+.construction-card {
+  width: 160px;
+  height: 220px;
+  border-radius: 16px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
+}
+
+.construction-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.2);
+}
+
+.card-front {
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(135deg, #fff9e6 0%, #fff3cc 100%);
+  border: 4px solid #d4a574;
+  border-radius: 16px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 12px;
+}
+
+.card-value {
+  font-family: 'Outfit', sans-serif;
+  font-size: 3.6rem;
+  font-weight: 700;
+  color: #8b5e3c;
+  line-height: 1;
+}
+
+.card-action {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  margin-top: 8px;
+}
+
+.card-action i {
+  font-size: 2.6rem;
+}
+
+.action-icon-text {
+  font-family: 'Outfit', sans-serif;
+  font-size: 2rem;
+  font-weight: 800;
+  letter-spacing: 0.05em;
+}
+
+.action-name {
+  font-family: 'Outfit', sans-serif;
+  font-size: 1rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
+}
+
+/* Action color themes */
+.action-surveyor .card-action { color: #6b7280; }
+.action-surveyor { border-color: #6b7280; }
+
+.action-landscaper .card-action { color: #16a34a; }
+.action-landscaper { border-color: #16a34a; }
+
+.action-realEstate .card-action { color: #9333ea; }
+.action-realEstate { border-color: #9333ea; }
+
+.action-tempAgency .card-action { color: #ea580c; }
+.action-tempAgency { border-color: #ea580c; }
+
+.action-pool .card-action { color: #0891b2; }
+.action-pool { border-color: #0891b2; }
+
+.action-bis .card-action { color: #dc2626; }
+.action-bis { border-color: #dc2626; }
+
+.card-back {
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%);
+  border: 4px solid #1e40af;
+  border-radius: 16px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+}
+
+.card-back i {
+  font-size: 3.6rem;
+  color: rgba(255, 255, 255, 0.9);
+}
+
+.next-round-text {
+  font-family: 'Outfit', sans-serif;
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: white;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+}
+
+.construction-card.face-down {
+  cursor: pointer;
+}
+
+.construction-card.face-down:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 12px 32px rgba(37, 99, 235, 0.4);
+}
+
+.construction-card.face-down:hover .card-back {
+  background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);
+}
+
+.construction-card.face-down:active {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(37, 99, 235, 0.3);
+}
+
+.construction-card.face-down:focus {
+  outline: none;
+  box-shadow: 0 0 0 4px rgba(37, 99, 235, 0.5), 0 12px 32px rgba(37, 99, 235, 0.3);
+}
+
+.construction-card.face-down:focus .card-back {
+  border-color: #60a5fa;
+}
+

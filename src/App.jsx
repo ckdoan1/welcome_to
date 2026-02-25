@@ -1,6 +1,8 @@
 import { useState } from 'react'
 import './App.css'
 import HouseLot from './components/HouseLot'
+import ConstructionCard from './components/ConstructionCard'
+import { createShuffledDeck } from './data/constructionCards'
 
 // Houses with pool option (0-indexed)
 const ROW1_POOLS = [2, 6, 7] // 3rd, 7th, 8th
@@ -38,6 +40,25 @@ function App() {
     }))
   )
 
+  // Construction card deck
+  const [deck, setDeck] = useState(() => createShuffledDeck())
+  const [currentCards, setCurrentCards] = useState([])
+
+  const drawThreeCards = () => {
+    // Shuffle the deck and draw 3 cards
+    const shuffled = [...deck].sort(() => Math.random() - 0.5)
+    const drawn = shuffled.slice(0, 3)
+    const remaining = shuffled.slice(3)
+
+    setCurrentCards(drawn)
+    setDeck(remaining)
+  }
+
+  const resetDeck = () => {
+    setDeck(createShuffledDeck())
+    setCurrentCards([])
+  }
+
   const updateRow1House = (index, field, value) => {
     setRow1(prev => prev.map((house, i) =>
       i === index ? { ...house, [field]: value } : house
@@ -62,9 +83,45 @@ function App() {
         <div className="glow-orb"></div>
         <div className="glow-orb secondary"></div>
 
-        <h1 className="welcome-title">
-          <span className="wave">👋</span> Welcome to
-        </h1>
+        <div className="top-bar">
+          <h1 className="welcome-title">
+            <span className="wave">👋</span> Welcome to
+          </h1>
+
+          <div className="card-section">
+            <div className="deck-area">
+              <p className="deck-count">Deck: {deck.length} cards</p>
+              {deck.length >= 3 ? (
+                <ConstructionCard faceDown onClick={drawThreeCards} />
+              ) : (
+                <p className="deck-empty">End of Game</p>
+              )}
+              <button className="reset-btn" onClick={resetDeck}>Reset Deck</button>
+            </div>
+
+            <div className="drawn-cards">
+              <p className="drawn-label">Current Cards:</p>
+              <div className="cards-display">
+                {currentCards.length > 0 ? (
+                  currentCards.map((card) => (
+                    <ConstructionCard
+                      key={card.id}
+                      value={card.value}
+                      action={card.action}
+                      actionData={card.actionData}
+                    />
+                  ))
+                ) : (
+                  <>
+                    <div className="card-placeholder"></div>
+                    <div className="card-placeholder"></div>
+                    <div className="card-placeholder"></div>
+                  </>
+                )}
+              </div>
+            </div>
+          </div>
+        </div>
 
         <div className="house-row">
           {row1.map((house, index) => (
