@@ -228,12 +228,6 @@ function App() {
         </div>
 
         <div className="street-row">
-          <Parks
-            values={[0, 2, 4]}
-            finalValue={10}
-            activeParks={row1Parks}
-            onParkClick={toggleRow1Park}
-          />
           <div className="house-row">
             {row1.map((house, index) => (
               <HouseLot
@@ -253,15 +247,15 @@ function App() {
               />
             ))}
           </div>
+          <Parks
+            values={[0, 2, 4]}
+            finalValue={10}
+            activeParks={row1Parks}
+            onParkClick={toggleRow1Park}
+          />
         </div>
 
         <div className="street-row">
-          <Parks
-            values={[0, 2, 4, 6]}
-            finalValue={14}
-            activeParks={row2Parks}
-            onParkClick={toggleRow2Park}
-          />
           <div className="house-row">
             {row2.map((house, index) => (
               <HouseLot
@@ -281,15 +275,15 @@ function App() {
               />
             ))}
           </div>
+          <Parks
+            values={[0, 2, 4, 6]}
+            finalValue={14}
+            activeParks={row2Parks}
+            onParkClick={toggleRow2Park}
+          />
         </div>
 
         <div className="street-row">
-          <Parks
-            values={[0, 2, 4, 6, 8]}
-            finalValue={18}
-            activeParks={row3Parks}
-            onParkClick={toggleRow3Park}
-          />
           <div className="house-row">
             {row3.map((house, index) => (
               <HouseLot
@@ -309,6 +303,12 @@ function App() {
               />
             ))}
           </div>
+          <Parks
+            values={[0, 2, 4, 6, 8]}
+            finalValue={18}
+            activeParks={row3Parks}
+            onParkClick={toggleRow3Park}
+          />
         </div>
 
         <Score

@@ -13,9 +13,9 @@ function Parks({ values, finalValue, activeParks = [], onParkClick }) {
             {value}
           </button>
         ))}
-      </div>
-      <div className="parks-final">
-        {finalValue}
+        <div className="parks-final">
+          {finalValue}
+        </div>
       </div>
     </div>
   )
