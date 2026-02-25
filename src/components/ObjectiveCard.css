@@ -8,11 +8,12 @@
   display: flex;
   flex-direction: column;
   gap: 8px;
+  position: relative;
 }
 
 .objective-header {
   display: flex;
-  justify-content: center;
+  justify-content: space-between;
   align-items: center;
 }
 
@@ -23,6 +24,44 @@
   color: #92400e;
   text-transform: uppercase;
   letter-spacing: 0.02em;
+  flex: 1;
+  text-align: center;
+}
+
+.objective-check {
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  border: 2px solid #d4c4b0;
+  background: white;
+  color: #d4c4b0;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.7rem;
+  transition: all 0.2s ease;
+  padding: 0;
+  position: absolute;
+  top: 8px;
+  right: 8px;
+}
+
+.objective-check:hover {
+  border-color: #16a34a;
+  color: #16a34a;
+  background: #dcfce7;
+}
+
+.objective-check.met {
+  background: #16a34a;
+  border-color: #16a34a;
+  color: white;
+}
+
+.objective-check.met:hover {
+  background: #15803d;
+  border-color: #15803d;
 }
 
 .objective-requirements {
@@ -79,4 +118,58 @@
   background: white;
   color: #d97706;
   border: 1px solid #d97706;
+}
+
+/* Active/inactive states for points */
+.objective-points.inactive {
+  opacity: 0.4;
+}
+
+.objective-points.active {
+  transform: scale(1.1);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+}
+
+/* Clickable card styles */
+.objective-card.clickable {
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.objective-card.clickable:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+/* Approved state - grey out the card */
+.objective-card.approved-state {
+  background: linear-gradient(135deg, #e5e5e5 0%, #d4d4d4 100%);
+  border-color: #737373;
+}
+
+.objective-card.approved-state .objective-deck {
+  color: #525252;
+}
+
+.objective-card.approved-state .houses-group {
+  background: rgba(255, 255, 255, 0.5);
+  border-color: rgba(115, 115, 115, 0.3);
+}
+
+.objective-card.approved-state .houses-group .house-icon {
+  color: #525252;
+}
+
+.objective-card.approved-state .objective-points.project {
+  background: #737373;
+}
+
+.objective-card.approved-state .objective-points.approved {
+  border-color: #737373;
+  color: #525252;
+}
+
+.objective-card.approved-state .objective-points.approved.active {
+  background: #525252;
+  color: white;
 }

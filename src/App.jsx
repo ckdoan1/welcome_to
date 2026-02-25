@@ -145,6 +145,8 @@ function App() {
     setCardSelections({})
     setRoundNumber(0)
     setDrawCount(0)
+    setApprovedObjectives({ n1: false, n2: false, n3: false })
+    setMetObjectives({ n1: false, n2: false, n3: false })
   }, [gameMode, gameSeed])
 
   const drawThreeCards = () => {
@@ -219,9 +221,27 @@ function App() {
 
   // Objective cards
   const [objectives, setObjectives] = useState(() => getRandomObjectives())
+  const [approvedObjectives, setApprovedObjectives] = useState({ n1: false, n2: false, n3: false })
+  const [metObjectives, setMetObjectives] = useState({ n1: false, n2: false, n3: false })
 
   const pickNewObjectives = () => {
     setObjectives(getRandomObjectives())
+    setApprovedObjectives({ n1: false, n2: false, n3: false })
+    setMetObjectives({ n1: false, n2: false, n3: false })
+  }
+
+  const toggleObjectiveApproved = (deck) => {
+    setApprovedObjectives(prev => ({
+      ...prev,
+      [deck]: !prev[deck]
+    }))
+  }
+
+  const toggleObjectiveMet = (deck) => {
+    setMetObjectives(prev => ({
+      ...prev,
+      [deck]: !prev[deck]
+    }))
   }
 
   const updateRow1House = (index, field, value) => {
@@ -379,13 +399,6 @@ function App() {
             </div>
           </div>
 
-          {soloActivated && (
-            <div className="solo-activated">
-              <i className="fa-solid fa-house-circle-check"></i>
-              <span>Solo Card Activated!</span>
-            </div>
-          )}
-
           <div className="objectives-section">
             <div className="objectives-header">
               <p className="objectives-label">Objective Cards:</p>
@@ -394,10 +407,40 @@ function App() {
               </button>
             </div>
             <div className="objectives-display">
-              <ObjectiveCard card={objectives.n1} deckInfo={getDeckInfo('n1')} />
-              <ObjectiveCard card={objectives.n2} deckInfo={getDeckInfo('n2')} />
-              <ObjectiveCard card={objectives.n3} deckInfo={getDeckInfo('n3')} />
+              <ObjectiveCard
+                card={objectives.n1}
+                deckInfo={getDeckInfo('n1')}
+                isApproved={approvedObjectives.n1 || (gameMode === 'solo' && soloActivated)}
+                isClickable={gameMode === 'multiplayer'}
+                onClick={() => toggleObjectiveApproved('n1')}
+                isMet={metObjectives.n1}
+                onCheckClick={() => toggleObjectiveMet('n1')}
+              />
+              <ObjectiveCard
+                card={objectives.n2}
+                deckInfo={getDeckInfo('n2')}
+                isApproved={approvedObjectives.n2 || (gameMode === 'solo' && soloActivated)}
+                isClickable={gameMode === 'multiplayer'}
+                onClick={() => toggleObjectiveApproved('n2')}
+                isMet={metObjectives.n2}
+                onCheckClick={() => toggleObjectiveMet('n2')}
+              />
+              <ObjectiveCard
+                card={objectives.n3}
+                deckInfo={getDeckInfo('n3')}
+                isApproved={approvedObjectives.n3 || (gameMode === 'solo' && soloActivated)}
+                isClickable={gameMode === 'multiplayer'}
+                onClick={() => toggleObjectiveApproved('n3')}
+                isMet={metObjectives.n3}
+                onCheckClick={() => toggleObjectiveMet('n3')}
+              />
             </div>
+            {soloActivated && (
+              <div className="solo-activated">
+                <i className="fa-solid fa-house-circle-check"></i>
+                <span>Solo Card Activated!</span>
+              </div>
+            )}
           </div>
         </div>
 

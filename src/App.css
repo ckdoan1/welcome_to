@@ -527,12 +527,14 @@
 .solo-activated {
   display: flex;
   align-items: center;
+  justify-content: center;
   gap: 0.5rem;
   background: linear-gradient(135deg, #fef3c7 0%, #fde68a 100%);
   border: 2px solid #ca8a04;
   border-radius: 8px;
-  padding: 12px 16px;
+  padding: 10px 14px;
   animation: pulse 2s ease-in-out infinite;
+  margin-top: 0.5rem;
 }
 
 .solo-activated i {
