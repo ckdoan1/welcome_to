@@ -21,7 +21,6 @@ body {
   background: var(--bg-light);
   color: var(--text-primary);
   min-height: 100vh;
-  overflow-x: auto;
 }
 
 #root {
