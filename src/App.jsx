@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import './App.css'
 import HouseLot from './components/HouseLot'
 import ConstructionCard from './components/ConstructionCard'
@@ -13,7 +13,42 @@ const ROW1_POOLS = [2, 6, 7] // 3rd, 7th, 8th
 const ROW2_POOLS = [0, 3, 7] // 1st, 4th, 8th
 const ROW3_POOLS = [1, 6, 10] // 2nd, 7th, 11th
 
+// Seeded random number generator (mulberry32)
+function createSeededRandom(seed) {
+  let state = seed
+  return function() {
+    state |= 0
+    state = state + 0x6D2B79F5 | 0
+    let t = Math.imul(state ^ state >>> 15, 1 | state)
+    t = t + Math.imul(t ^ t >>> 7, 61 | t) ^ t
+    return ((t ^ t >>> 14) >>> 0) / 4294967296
+  }
+}
+
+// Seeded shuffle using Fisher-Yates
+function seededShuffle(array, rng) {
+  const shuffled = [...array]
+  for (let i = shuffled.length - 1; i > 0; i--) {
+    const j = Math.floor(rng() * (i + 1))
+    ;[shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]]
+  }
+  return shuffled
+}
+
+// Generate a random seed
+function generateSeed() {
+  return Math.floor(Math.random() * 1000000)
+}
+
 function App() {
+  // Game mode: 'solo' or 'multiplayer'
+  const [gameMode, setGameMode] = useState('solo')
+
+  // Seed for deterministic randomness
+  const [gameSeed, setGameSeed] = useState(() => generateSeed())
+  const [seedInput, setSeedInput] = useState('')
+  const [drawCount, setDrawCount] = useState(0) // Track draws for consistent seeding
+
   // State for row 1 (10 houses)
   const [row1, setRow1] = useState(
     Array(10).fill(null).map((_, index) => ({
@@ -80,14 +115,59 @@ function App() {
   }
 
   // Construction card deck
-  const [deck, setDeck] = useState(() => createShuffledDeck())
+  const [deck, setDeck] = useState(() => {
+    // Solo mode uses random, multiplayer uses seeded
+    if (gameMode === 'solo') {
+      return createShuffledDeck(true)
+    }
+    const deckRng = createSeededRandom(gameSeed)
+    return createShuffledDeck(false, deckRng)
+  })
   const [currentCards, setCurrentCards] = useState([])
+  const [previousCards, setPreviousCards] = useState([]) // For multiplayer mode
   const [soloActivated, setSoloActivated] = useState(false)
   const [cardSelections, setCardSelections] = useState({})
+  const [roundNumber, setRoundNumber] = useState(0)
+
+  // Recreate deck when game mode or seed changes
+  useEffect(() => {
+    const includeSoloCard = gameMode === 'solo'
+    // Solo mode uses random, multiplayer uses seeded RNG
+    if (gameMode === 'solo') {
+      setDeck(createShuffledDeck(includeSoloCard))
+    } else {
+      const deckRng = createSeededRandom(gameSeed)
+      setDeck(createShuffledDeck(includeSoloCard, deckRng))
+    }
+    setCurrentCards([])
+    setPreviousCards([])
+    setSoloActivated(false)
+    setCardSelections({})
+    setRoundNumber(0)
+    setDrawCount(0)
+  }, [gameMode, gameSeed])
 
   const drawThreeCards = () => {
-    // Shuffle the deck and draw 3 cards
-    const shuffled = [...deck].sort(() => Math.random() - 0.5)
+    let currentDeck = deck
+    const newDrawCount = drawCount + 1
+
+    // In multiplayer mode, reshuffle if deck is running low
+    if (gameMode === 'multiplayer' && currentDeck.length < 3) {
+      // Use seeded RNG for deck recreation
+      const deckRng = createSeededRandom(gameSeed + newDrawCount * 10000)
+      currentDeck = createShuffledDeck(false, deckRng)
+    }
+
+    let shuffled
+    if (gameMode === 'solo') {
+      // Solo mode uses random shuffle
+      shuffled = [...currentDeck].sort(() => Math.random() - 0.5)
+    } else {
+      // Multiplayer uses seeded shuffle for consistency
+      const rng = createSeededRandom(gameSeed + newDrawCount * 1000)
+      shuffled = seededShuffle(currentDeck, rng)
+    }
+
     const drawn = shuffled.slice(0, 3)
     const remaining = shuffled.slice(3)
 
@@ -96,9 +176,25 @@ function App() {
       setSoloActivated(true)
     }
 
+    // Save current cards as previous (for multiplayer mode)
+    setPreviousCards(currentCards)
     setCurrentCards(drawn)
     setDeck(remaining)
     setCardSelections({}) // Reset selections when new cards are drawn
+    setRoundNumber(prev => prev + 1) // Increment round
+    setDrawCount(newDrawCount)
+  }
+
+  const handleSeedSubmit = () => {
+    const newSeed = parseInt(seedInput)
+    if (!isNaN(newSeed) && newSeed > 0) {
+      setGameSeed(newSeed)
+      setSeedInput('')
+    }
+  }
+
+  const handleGenerateNewSeed = () => {
+    setGameSeed(generateSeed())
   }
 
   const toggleCardNumber = (cardId) => {
@@ -164,44 +260,122 @@ function App() {
               onChange={(e) => setNeighbourhoodName(e.target.value)}
               placeholder=" "
             />
+            {gameMode === 'multiplayer' && (
+              <div className="seed-display">
+                <span className="seed-label">Seed:</span>
+                <span className="seed-value">{gameSeed}</span>
+              </div>
+            )}
+          </div>
+          {gameMode === 'multiplayer' && (
+            <div className="seed-controls">
+              <input
+                type="text"
+                className="seed-input"
+                value={seedInput}
+                onChange={(e) => setSeedInput(e.target.value.replace(/[^0-9]/g, ''))}
+                placeholder="Enter seed"
+                onKeyDown={(e) => e.key === 'Enter' && handleSeedSubmit()}
+              />
+              <button className="seed-btn" onClick={handleSeedSubmit}>
+                <i className="fa-solid fa-check"></i>
+              </button>
+              <button className="seed-btn generate" onClick={handleGenerateNewSeed}>
+                <i className="fa-solid fa-dice"></i>
+              </button>
+            </div>
+          )}
+          <div className="game-mode-toggle">
+            <button
+              className={`mode-btn ${gameMode === 'solo' ? 'active' : ''}`}
+              onClick={() => setGameMode('solo')}
+            >
+              <i className="fa-solid fa-user"></i>
+              Solo
+            </button>
+            <button
+              className={`mode-btn ${gameMode === 'multiplayer' ? 'active' : ''}`}
+              onClick={() => setGameMode('multiplayer')}
+            >
+              <i className="fa-solid fa-users"></i>
+              Multiplayer
+            </button>
           </div>
         </div>
 
         <div className="cards-row">
           <div className="card-section">
             <div className="deck-area">
-              <p className="deck-count">Deck: {deck.length} cards</p>
-              {deck.length >= 3 ? (
-                <ConstructionCard faceDown onClick={drawThreeCards} />
-              ) : (
-                <p className="deck-empty">End of Game</p>
-              )}
+              <div className="round-pill">
+                <span className="round-number">Round {roundNumber}</span>
+              </div>
+              <div className="deck-stack">
+                <p className="deck-count">Deck: {deck.length} cards</p>
+                {deck.length >= 3 || gameMode === 'multiplayer' ? (
+                  <ConstructionCard faceDown onClick={drawThreeCards} />
+                ) : (
+                  <p className="deck-empty">End of Game</p>
+                )}
+              </div>
             </div>
 
             <div className="drawn-cards">
               <p className="drawn-label">Current Cards:</p>
-              <div className="cards-display">
-                {currentCards.length > 0 ? (
-                  currentCards.map((card) => (
-                    <ConstructionCard
-                      key={card.id}
-                      value={card.value}
-                      action={card.action}
-                      actionData={card.actionData}
-                      numberSelected={cardSelections[card.id]?.numberSelected}
-                      actionSelected={cardSelections[card.id]?.actionSelected}
-                      onNumberClick={() => toggleCardNumber(card.id)}
-                      onActionClick={() => toggleCardAction(card.id)}
-                    />
-                  ))
-                ) : (
-                  <>
-                    <div className="card-placeholder"></div>
-                    <div className="card-placeholder"></div>
-                    <div className="card-placeholder"></div>
-                  </>
-                )}
-              </div>
+              {gameMode === 'solo' ? (
+                <div className="cards-display">
+                  {currentCards.length > 0 ? (
+                    currentCards.map((card) => (
+                      <ConstructionCard
+                        key={card.id}
+                        value={card.value}
+                        action={card.action}
+                        actionData={card.actionData}
+                        numberSelected={cardSelections[card.id]?.numberSelected}
+                        actionSelected={cardSelections[card.id]?.actionSelected}
+                        onNumberClick={() => toggleCardNumber(card.id)}
+                        onActionClick={() => toggleCardAction(card.id)}
+                      />
+                    ))
+                  ) : (
+                    <>
+                      <div className="card-placeholder"></div>
+                      <div className="card-placeholder"></div>
+                      <div className="card-placeholder"></div>
+                    </>
+                  )}
+                </div>
+              ) : (
+                <div className="cards-display multiplayer">
+                  {currentCards.length > 0 ? (
+                    currentCards.map((card, index) => (
+                      <div key={card.id} className="card-stack">
+                        <ConstructionCard
+                          value={card.value}
+                          action={card.action}
+                          actionData={card.actionData}
+                          hideAction
+                          numberSelected={cardSelections[card.id]?.numberSelected}
+                          onNumberClick={() => toggleCardNumber(card.id)}
+                        />
+                        {previousCards[index] && (
+                          <ConstructionCard
+                            value={previousCards[index].value}
+                            action={previousCards[index].action}
+                            actionData={previousCards[index].actionData}
+                            showActionOnly
+                          />
+                        )}
+                      </div>
+                    ))
+                  ) : (
+                    <>
+                      <div className="card-placeholder"></div>
+                      <div className="card-placeholder"></div>
+                      <div className="card-placeholder"></div>
+                    </>
+                  )}
+                </div>
+              )}
             </div>
           </div>
 

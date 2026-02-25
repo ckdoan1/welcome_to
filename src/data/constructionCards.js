@@ -77,26 +77,30 @@ function generateActions() {
 }
 
 // Shuffle array using Fisher-Yates algorithm
-function shuffle(array) {
+// rng is optional - if provided, uses seeded random, otherwise Math.random()
+function shuffle(array, rng = null) {
   const shuffled = [...array]
+  const random = rng || Math.random
   for (let i = shuffled.length - 1; i > 0; i--) {
-    const j = Math.floor(Math.random() * (i + 1))
+    const j = Math.floor(random() * (i + 1))
     ;[shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]]
   }
   return shuffled
 }
 
 // Generate the deck of cards with randomly assigned actions
-function generateDeck() {
+// includeSoloCard: true for solo mode, false for multiplayer
+// rng: optional seeded random function
+function generateDeck(includeSoloCard = true, rng = null) {
   const deck = []
-  const shuffledActions = shuffle(generateActions())
+  const shuffledActions = shuffle(generateActions(), rng)
   let actionIndex = 0
 
   Object.entries(CARD_DISTRIBUTION).forEach(([value, count]) => {
     for (let i = 0; i < count; i++) {
       const actionKey = shuffledActions[actionIndex]
       deck.push({
-        id: `card-${value}-${i}-${Date.now()}-${actionIndex}`,
+        id: `card-${value}-${i}-${actionIndex}`,
         value: parseInt(value),
         action: actionKey,
         actionData: ACTIONS[actionKey],
@@ -105,25 +109,29 @@ function generateDeck() {
     }
   })
 
-  // Add the Solo card
-  deck.push({
-    id: `card-solo-${Date.now()}`,
-    value: 0,
-    action: 'solo',
-    actionData: ACTIONS.solo,
-  })
+  // Add the Solo card only for solo mode
+  if (includeSoloCard) {
+    deck.push({
+      id: `card-solo`,
+      value: 0,
+      action: 'solo',
+      actionData: ACTIONS.solo,
+    })
+  }
 
   return deck
 }
 
 // Shuffle the deck using Fisher-Yates algorithm
-function shuffleDeck(deck) {
-  return shuffle(deck)
+function shuffleDeck(deck, rng = null) {
+  return shuffle(deck, rng)
 }
 
 // Create a new shuffled deck with fresh random actions
-function createShuffledDeck() {
-  return shuffleDeck(generateDeck())
+// includeSoloCard: true for solo mode, false for multiplayer
+// rng: optional seeded random function
+function createShuffledDeck(includeSoloCard = true, rng = null) {
+  return shuffleDeck(generateDeck(includeSoloCard, rng), rng)
 }
 
 // Get card distribution info
