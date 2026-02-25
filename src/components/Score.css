@@ -5,7 +5,8 @@
   border-radius: 16px;
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.04);
   padding: 1rem 1.5rem;
-  width: 100%;
+  width: fit-content;
+  margin: 0 auto;
 }
 
 .score-section {
@@ -18,12 +19,12 @@
 .score-inputs {
   display: flex;
   flex-direction: column;
-  gap: 6px;
+  gap: 12px;
   background: #f5f0e8;
-  padding: 10px;
+  padding: 16px;
   border-radius: 8px;
   border: 2px solid #d4c4b0;
-  height: 160px;
+  height: 220px;
   justify-content: center;
   box-sizing: border-box;
 }
@@ -60,12 +61,13 @@
 .score-inputs.pools {
   background: #dbeafe;
   border-color: #93c5fd;
-  flex-direction: row;
-  flex-wrap: wrap;
+  display: grid;
+  grid-template-rows: repeat(5, 32px);
+  grid-auto-flow: column;
   justify-content: center;
   align-content: center;
-  max-width: 180px;
-  height: 160px;
+  gap: 8px;
+  height: 220px;
   box-sizing: border-box;
 }
 
@@ -99,11 +101,12 @@
   background: #ffedd5;
   border-color: #fdba74;
   display: grid;
-  grid-template-columns: repeat(3, 32px);
+  grid-template-rows: repeat(3, 32px);
+  grid-auto-flow: column;
   justify-content: center;
   align-content: center;
-  gap: 6px;
-  height: 160px;
+  gap: 10px;
+  height: 220px;
   box-sizing: border-box;
 }
 
@@ -143,12 +146,13 @@
 .score-inputs.bis {
   background: #fee2e2;
   border-color: #fca5a5;
-  flex-direction: row;
-  flex-wrap: wrap;
+  display: grid;
+  grid-template-rows: repeat(5, 32px);
+  grid-auto-flow: column;
   justify-content: center;
   align-content: center;
-  max-width: 180px;
-  height: 160px;
+  gap: 8px;
+  height: 220px;
   box-sizing: border-box;
 }
 
@@ -184,11 +188,13 @@
 .score-inputs.no-move {
   background: #fee2e2;
   border-color: #fca5a5;
-  flex-direction: row;
+  display: grid;
+  grid-template-rows: repeat(4, 32px);
+  grid-auto-flow: column;
   justify-content: center;
-  align-items: center;
-  gap: 6px;
-  height: 160px;
+  align-content: center;
+  gap: 8px;
+  height: 220px;
   box-sizing: border-box;
 }
 
@@ -255,7 +261,7 @@
 }
 
 .real-estate-section {
-  min-width: 200px;
+  min-width: 320px;
 }
 
 .real-estate-section .score-inputs.real-estate,
@@ -266,11 +272,11 @@
 .score-inputs.real-estate {
   background: #f3e8ff;
   border-color: #d8b4fe;
-  height: auto;
-  min-height: 160px;
+  height: 220px;
   flex-direction: row;
-  gap: 16px;
+  gap: 12px;
   align-items: stretch;
+  justify-content: space-around;
 }
 
 .real-estate-row {
@@ -357,16 +363,17 @@
   border-color: #d8b4fe;
   flex-direction: row;
   justify-content: space-around;
-  min-height: auto;
-  padding: 10px;
+  min-height: 60px;
+  padding: 10px 16px;
+  gap: 8px;
 }
 
 .real-estate-subtotal {
-  width: 26px;
-  height: 26px;
+  width: 40px;
+  height: 40px;
   border-radius: 50%;
   border: 2px solid #1a1a2e;
-  background: #1a1a2e;
+  background: white;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -374,9 +381,9 @@
 
 .subtotal-value {
   font-family: 'Outfit', sans-serif;
-  font-size: 0.7rem;
+  font-size: 1rem;
   font-weight: 700;
-  color: white;
+  color: #1a1a2e;
 }
 
 .score-input {
@@ -436,7 +443,7 @@
   height: 40px;
   border-radius: 50%;
   border: 2px solid #1a1a2e;
-  background: #1a1a2e;
+  background: white;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -446,6 +453,6 @@
   font-family: 'Outfit', sans-serif;
   font-size: 1rem;
   font-weight: 700;
-  color: white;
+  color: #1a1a2e;
 }
 

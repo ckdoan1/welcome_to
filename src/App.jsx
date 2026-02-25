@@ -20,7 +20,8 @@ function App() {
       number: '',
       leftFenceActive: false,
       rightFenceActive: false,
-      poolActive: false
+      poolActive: false,
+      houseActive: false
     }))
   )
 
@@ -30,7 +31,8 @@ function App() {
       number: '',
       leftFenceActive: false,
       rightFenceActive: false,
-      poolActive: false
+      poolActive: false,
+      houseActive: false
     }))
   )
 
@@ -40,7 +42,8 @@ function App() {
       number: '',
       leftFenceActive: false,
       rightFenceActive: false,
-      poolActive: false
+      poolActive: false,
+      houseActive: false
     }))
   )
 
@@ -79,12 +82,18 @@ function App() {
   // Construction card deck
   const [deck, setDeck] = useState(() => createShuffledDeck())
   const [currentCards, setCurrentCards] = useState([])
+  const [soloActivated, setSoloActivated] = useState(false)
 
   const drawThreeCards = () => {
     // Shuffle the deck and draw 3 cards
     const shuffled = [...deck].sort(() => Math.random() - 0.5)
     const drawn = shuffled.slice(0, 3)
     const remaining = shuffled.slice(3)
+
+    // Check if solo card was drawn
+    if (drawn.some(card => card.action === 'solo')) {
+      setSoloActivated(true)
+    }
 
     setCurrentCards(drawn)
     setDeck(remaining)
@@ -93,6 +102,7 @@ function App() {
   const resetDeck = () => {
     setDeck(createShuffledDeck())
     setCurrentCards([])
+    setSoloActivated(false)
   }
 
   // Objective cards
@@ -176,6 +186,13 @@ function App() {
             </div>
           </div>
 
+          {soloActivated && (
+            <div className="solo-activated">
+              <i className="fa-solid fa-house-circle-check"></i>
+              <span>Solo Card Activated!</span>
+            </div>
+          )}
+
           <div className="objectives-section">
             <div className="objectives-header">
               <p className="objectives-label">Objective Cards:</p>
@@ -212,6 +229,8 @@ function App() {
                 onLeftFenceClick={() => updateRow1House(index, 'leftFenceActive', !house.leftFenceActive)}
                 rightFenceActive={house.rightFenceActive}
                 onRightFenceClick={() => updateRow1House(index, 'rightFenceActive', !house.rightFenceActive)}
+                houseActive={house.houseActive}
+                onHouseClick={() => updateRow1House(index, 'houseActive', !house.houseActive)}
               />
             ))}
           </div>
@@ -238,6 +257,8 @@ function App() {
                 onLeftFenceClick={() => updateRow2House(index, 'leftFenceActive', !house.leftFenceActive)}
                 rightFenceActive={house.rightFenceActive}
                 onRightFenceClick={() => updateRow2House(index, 'rightFenceActive', !house.rightFenceActive)}
+                houseActive={house.houseActive}
+                onHouseClick={() => updateRow2House(index, 'houseActive', !house.houseActive)}
               />
             ))}
           </div>
@@ -264,6 +285,8 @@ function App() {
                 onLeftFenceClick={() => updateRow3House(index, 'leftFenceActive', !house.leftFenceActive)}
                 rightFenceActive={house.rightFenceActive}
                 onRightFenceClick={() => updateRow3House(index, 'rightFenceActive', !house.rightFenceActive)}
+                houseActive={house.houseActive}
+                onHouseClick={() => updateRow3House(index, 'houseActive', !house.houseActive)}
               />
             ))}
           </div>

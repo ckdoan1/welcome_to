@@ -88,8 +88,30 @@
   color: #ccc;
 }
 
-.house-icon {
+.house-icon-btn {
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  padding: 4px 8px;
+  border-radius: 4px;
+  transition: all 0.2s ease;
+}
+
+.house-icon-btn i {
   font-size: 1.2rem;
   color: #8b7355;
+  transition: color 0.2s ease;
+}
+
+.house-icon-btn:hover {
+  background: rgba(0, 0, 0, 0.05);
+}
+
+.house-icon-btn:hover i {
+  color: #16a34a;
+}
+
+.house-icon-btn.active i {
+  color: #16a34a;
 }
 

@@ -10,7 +10,9 @@ function HouseLot({
   leftFenceActive,
   onLeftFenceClick,
   rightFenceActive,
-  onRightFenceClick
+  onRightFenceClick,
+  houseActive,
+  onHouseClick
 }) {
   return (
     <div className="house-lot">
@@ -46,7 +48,13 @@ function HouseLot({
             inputMode="numeric"
             placeholder=""
           />
-          <i className="fa-solid fa-house house-icon"></i>
+          <button
+            className={`house-icon-btn ${houseActive ? 'active' : ''}`}
+            onClick={onHouseClick}
+            aria-label="House"
+          >
+            <i className="fa-solid fa-house"></i>
+          </button>
         </div>
       </div>
 
