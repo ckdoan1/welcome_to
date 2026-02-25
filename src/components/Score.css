@@ -95,6 +95,290 @@
   border-color: #93c5fd;
 }
 
+.score-inputs.construction {
+  background: #ffedd5;
+  border-color: #fdba74;
+  display: grid;
+  grid-template-columns: repeat(3, 32px);
+  justify-content: center;
+  align-content: center;
+  gap: 6px;
+  height: 160px;
+  box-sizing: border-box;
+}
+
+.construction-btn {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  border: 2px solid #ea580c;
+  background: white;
+  color: #ea580c;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+}
+
+.construction-btn i {
+  font-size: 0.75rem;
+}
+
+.construction-btn:hover {
+  background: #fff7ed;
+}
+
+.construction-btn.active {
+  background: #ea580c;
+  color: white;
+}
+
+.score-total-wrapper.construction {
+  background: #fed7aa;
+  border-color: #fdba74;
+}
+
+.score-inputs.bis {
+  background: #fee2e2;
+  border-color: #fca5a5;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-content: center;
+  max-width: 180px;
+  height: 160px;
+  box-sizing: border-box;
+}
+
+.bis-score-btn {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  border: 2px solid #dc2626;
+  background: white;
+  font-family: 'Outfit', sans-serif;
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: #dc2626;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  padding: 0;
+}
+
+.bis-score-btn:hover {
+  background: #fef2f2;
+}
+
+.bis-score-btn.active {
+  background: #dc2626;
+  color: white;
+}
+
+.score-total-wrapper.bis {
+  background: #fecaca;
+  border-color: #fca5a5;
+}
+
+.score-inputs.no-move {
+  background: #fee2e2;
+  border-color: #fca5a5;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  gap: 6px;
+  height: 160px;
+  box-sizing: border-box;
+}
+
+.no-move-btn {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  border: 2px solid #dc2626;
+  background: white;
+  font-family: 'Outfit', sans-serif;
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: #dc2626;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  padding: 0;
+}
+
+.no-move-btn:hover {
+  background: #fef2f2;
+}
+
+.no-move-btn.active {
+  background: #dc2626;
+  color: white;
+}
+
+.score-total-wrapper.no-move {
+  background: #fecaca;
+  border-color: #fca5a5;
+}
+
+.final-score-section {
+  justify-content: center;
+  gap: 12px;
+}
+
+.final-score-label {
+  font-family: 'Outfit', sans-serif;
+  font-size: 1rem;
+  font-weight: 700;
+  color: #1a1a2e;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.final-score-display {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #1a1a2e 0%, #2d2d4a 100%);
+  border: 4px solid #ff6b5b;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 20px rgba(255, 107, 91, 0.3);
+}
+
+.final-score-value {
+  font-family: 'Outfit', sans-serif;
+  font-size: 1.8rem;
+  font-weight: 700;
+  color: white;
+}
+
+.real-estate-section {
+  min-width: 200px;
+}
+
+.real-estate-section .score-inputs.real-estate,
+.real-estate-section .score-total-wrapper.real-estate {
+  width: 100%;
+}
+
+.score-inputs.real-estate {
+  background: #f3e8ff;
+  border-color: #d8b4fe;
+  height: auto;
+  min-height: 160px;
+  flex-direction: row;
+  gap: 16px;
+  align-items: stretch;
+}
+
+.real-estate-row {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  justify-content: space-between;
+}
+
+.real-estate-top {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+}
+
+.lot-size-label {
+  font-family: 'Outfit', sans-serif;
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: #9333ea;
+  text-align: center;
+}
+
+.real-estate-scores {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.real-estate-btn {
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  border: 2px solid #9333ea;
+  background: white;
+  font-family: 'Outfit', sans-serif;
+  font-size: 0.7rem;
+  font-weight: 600;
+  color: #9333ea;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  padding: 0;
+}
+
+.real-estate-btn:hover {
+  background: #faf5ff;
+}
+
+.real-estate-btn.active {
+  background: #9333ea;
+  color: white;
+}
+
+.real-estate-final {
+  font-family: 'Outfit', sans-serif;
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: #9333ea;
+  text-align: center;
+}
+
+.real-estate-count {
+  width: 28px;
+  height: 26px;
+  border-radius: 4px;
+  border: 2px solid #9333ea;
+  background: white;
+  font-family: 'Outfit', sans-serif;
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-align: center;
+  color: #9333ea;
+  outline: none;
+}
+
+.real-estate-count::placeholder {
+  color: #d8b4fe;
+}
+
+.score-total-wrapper.real-estate {
+  background: #e9d5ff;
+  border-color: #d8b4fe;
+  flex-direction: row;
+  justify-content: space-around;
+  min-height: auto;
+  padding: 10px;
+}
+
+.real-estate-subtotal {
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  border: 2px solid #1a1a2e;
+  background: #1a1a2e;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.subtotal-value {
+  font-family: 'Outfit', sans-serif;
+  font-size: 0.7rem;
+  font-weight: 700;
+  color: white;
+}
+
 .score-input {
   width: 40px;
   height: 40px;
