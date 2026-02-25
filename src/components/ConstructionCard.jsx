@@ -5,6 +5,8 @@ function ConstructionCard({
   action,
   actionData,
   faceDown = false,
+  showActionOnly = false,
+  hideAction = false,
   onClick,
   numberSelected = false,
   actionSelected = false,
@@ -32,6 +34,20 @@ function ConstructionCard({
     onActionClick?.()
   }
 
+  // Show only the action (for previous cards in multiplayer mode)
+  if (showActionOnly) {
+    return (
+      <div
+        className={`construction-card action-only action-${action}`}
+        title={actionData?.description}
+      >
+        <div className={`card-action-only action-${action}`}>
+          {renderIcon()}
+        </div>
+      </div>
+    )
+  }
+
   return (
     <div
       className={`construction-card ${faceDown ? 'face-down' : ''}`}
@@ -44,14 +60,14 @@ function ConstructionCard({
           <span className="next-round-text">Next Round</span>
         </div>
       ) : (
-        <div className={`card-front action-${action}`}>
+        <div className={`card-front ${hideAction ? 'number-only' : `action-${action}`}`}>
           <span
             className={`card-value ${numberSelected ? 'selected' : ''}`}
             onClick={handleNumberClick}
           >
             {value}
           </span>
-          {actionData && (
+          {actionData && !hideAction && (
             <div
               className={`card-action ${actionSelected ? 'selected' : ''}`}
               onClick={handleActionClick}
