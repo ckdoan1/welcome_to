@@ -1,0 +1,39 @@
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700&display=swap');
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+:root {
+  --bg-light: #faf9f7;
+  --bg-card: rgba(0, 0, 0, 0.02);
+  --text-primary: #1a1a2e;
+  --text-secondary: #6b6b80;
+  --accent-coral: #ff6b5b;
+  --accent-teal: #4ecdc4;
+  --accent-gold: #ffd93d;
+}
+
+body {
+  font-family: 'Outfit', sans-serif;
+  background: var(--bg-light);
+  color: var(--text-primary);
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+#root {
+  min-height: 100vh;
+}
+
+code {
+  font-family: 'Fira Code', 'SF Mono', monospace;
+  background: rgba(255, 107, 91, 0.12);
+  color: #e84a3a;
+  padding: 0.2em 0.5em;
+  border-radius: 6px;
+  font-size: 0.9em;
+}
+
