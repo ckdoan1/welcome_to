@@ -41,6 +41,9 @@ function App() {
     }))
   )
 
+  // Neighbourhood name
+  const [neighbourhoodName, setNeighbourhoodName] = useState('')
+
   // Parks state
   const [row1Parks, setRow1Parks] = useState([])
   const [row2Parks, setRow2Parks] = useState([])
@@ -114,9 +117,18 @@ function App() {
         <div className="glow-orb secondary"></div>
 
         <div className="top-bar">
-          <h1 className="welcome-title">
-            <span className="wave">👋</span> Welcome to
-          </h1>
+          <div className="title-section">
+            <h1 className="welcome-title">
+              <span className="wave"></span> Welcome to
+            </h1>
+            <input
+              type="text"
+              className="neighbourhood-input"
+              value={neighbourhoodName}
+              onChange={(e) => setNeighbourhoodName(e.target.value)}
+              placeholder=" "
+            />
+          </div>
 
           <div className="card-section">
             <div className="deck-area">
