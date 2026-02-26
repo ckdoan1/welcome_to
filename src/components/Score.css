@@ -16,6 +16,47 @@
   gap: 8px;
 }
 
+.section-header {
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+  padding: 0.25rem 0.5rem;
+  border-radius: 6px;
+  background: #f8f8f8;
+  border: 1px solid #e5e5e5;
+}
+
+.section-icon {
+  font-size: 0.85rem;
+}
+
+.section-title {
+  font-family: 'Outfit', sans-serif;
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: #1a1a2e;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.bis-badge {
+  background: #dc2626;
+  color: white;
+  padding: 2px 5px;
+  border-radius: 3px;
+  font-size: 0.6rem;
+  font-weight: 800;
+  font-family: 'Outfit', sans-serif;
+}
+
+/* Icon colors */
+.icon-objectives { color: #d97706; }
+.icon-landscaper { color: #16a34a; }
+.icon-pool { color: #0891b2; }
+.icon-temp { color: #ea580c; }
+.icon-realestate { color: #9333ea; }
+.icon-refusal { color: #dc2626; }
+
 .score-inputs {
   display: flex;
   flex-direction: column;

@@ -151,6 +151,10 @@ function Score({ row1Parks = [], row2Parks = [], row3Parks = [], activePools = 0
   return (
     <div className="score-container">
       <div className="score-section">
+        <div className="section-header">
+          <i className="fa-solid fa-trophy section-icon icon-objectives"></i>
+          <span className="section-title">Plans</span>
+        </div>
         <div className="score-inputs">
           {section1.map((value, index) => (
             <div key={index} className="score-input-row">
@@ -173,6 +177,10 @@ function Score({ row1Parks = [], row2Parks = [], row3Parks = [], activePools = 0
       </div>
 
       <div className="score-section">
+        <div className="section-header">
+          <i className="fa-solid fa-tree section-icon icon-landscaper"></i>
+          <span className="section-title">Parks</span>
+        </div>
         <div className="score-inputs parks">
           {parkScores.map((score, index) => (
             <div key={index} className="score-display">
@@ -188,6 +196,10 @@ function Score({ row1Parks = [], row2Parks = [], row3Parks = [], activePools = 0
       </div>
 
       <div className="score-section">
+        <div className="section-header">
+          <i className="fa-solid fa-person-swimming section-icon icon-pool"></i>
+          <span className="section-title">Pools</span>
+        </div>
         <div className="score-inputs pools">
           {POOL_SCORES.map((score, index) => (
             <div
@@ -206,6 +218,10 @@ function Score({ row1Parks = [], row2Parks = [], row3Parks = [], activePools = 0
       </div>
 
       <div className="score-section">
+        <div className="section-header">
+          <i className="fa-solid fa-road-barrier section-icon icon-temp"></i>
+          <span className="section-title">Temp</span>
+        </div>
         <div className="score-inputs construction">
           {constructionClicked.map((isClicked, index) => (
             <button
@@ -245,6 +261,10 @@ function Score({ row1Parks = [], row2Parks = [], row3Parks = [], activePools = 0
       </div>
 
       <div className="score-section real-estate-section">
+        <div className="section-header">
+          <i className="fa-solid fa-coins section-icon icon-realestate"></i>
+          <span className="section-title">Estates</span>
+        </div>
         <div className="score-inputs real-estate">
           {lotSizes.map((size) => (
             <div key={size} className="real-estate-row">
@@ -295,6 +315,10 @@ function Score({ row1Parks = [], row2Parks = [], row3Parks = [], activePools = 0
       </div>
 
       <div className="score-section">
+        <div className="section-header">
+          <span className="bis-badge">BIS</span>
+          <span className="section-title">Duplicates</span>
+        </div>
         <div className="score-inputs bis">
           {BIS_SCORES.map((score, index) => (
             <button
@@ -314,6 +338,10 @@ function Score({ row1Parks = [], row2Parks = [], row3Parks = [], activePools = 0
       </div>
 
       <div className="score-section">
+        <div className="section-header">
+          <i className="fa-solid fa-ban section-icon icon-refusal"></i>
+          <span className="section-title">Refusal</span>
+        </div>
         <div className="score-inputs no-move">
           {NO_MOVE_SCORES.map((score, index) => (
             <button

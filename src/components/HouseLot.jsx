@@ -31,7 +31,9 @@ function HouseLot({
               className={`pool-button ${poolActive ? 'active' : ''}`}
               onClick={onTopButtonClick}
               aria-label="Pool"
-            />
+            >
+              <i className="fa-solid fa-person-swimming"></i>
+            </button>
           )}
         </div>
 

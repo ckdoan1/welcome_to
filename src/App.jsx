@@ -6,7 +6,7 @@ import ObjectiveCard from './components/ObjectiveCard'
 import Parks from './components/Parks'
 import Score from './components/Score'
 import { createShuffledDeck } from './data/constructionCards'
-import { getRandomObjectives, getDeckInfo } from './data/objectiveCards'
+import { getRandomObjectives, getSeededObjectives, getDeckInfo } from './data/objectiveCards'
 
 // Houses with pool option (0-indexed)
 const ROW1_POOLS = [2, 6, 7] // 3rd, 7th, 8th
@@ -138,6 +138,8 @@ function App() {
     } else {
       const deckRng = createSeededRandom(gameSeed)
       setDeck(createShuffledDeck(includeSoloCard, deckRng))
+      // In multiplayer mode, use seeded objectives
+      setObjectives(getSeededObjectives(gameSeed))
     }
     setCurrentCards([])
     setPreviousCards([])
@@ -413,9 +415,11 @@ function App() {
           <div className="objectives-section">
             <div className="objectives-header">
               <p className="objectives-label">City Plans:</p>
-              <button className="new-objectives-btn" onClick={pickNewObjectives}>
-                New Objectives
-              </button>
+              {gameMode === 'solo' && (
+                <button className="new-objectives-btn" onClick={pickNewObjectives}>
+                  New Objectives
+                </button>
+              )}
             </div>
             <div className="objectives-display">
               <ObjectiveCard

@@ -152,20 +152,35 @@ const OBJECTIVE_DECKS = {
 }
 
 // Get a random card from a specific deck
-function getRandomCardFromDeck(deckId) {
+function getRandomCardFromDeck(deckId, rng = null) {
   const deck = OBJECTIVE_DECKS[deckId]
   if (!deck) return null
-  const randomIndex = Math.floor(Math.random() * deck.cards.length)
+  const random = rng ? rng() : Math.random()
+  const randomIndex = Math.floor(random * deck.cards.length)
   return deck.cards[randomIndex]
 }
 
 // Get one random card from each deck
-function getRandomObjectives() {
+function getRandomObjectives(rng = null) {
   return {
-    n1: getRandomCardFromDeck('n1'),
-    n2: getRandomCardFromDeck('n2'),
-    n3: getRandomCardFromDeck('n3'),
+    n1: getRandomCardFromDeck('n1', rng),
+    n2: getRandomCardFromDeck('n2', rng),
+    n3: getRandomCardFromDeck('n3', rng),
   }
+}
+
+// Get seeded objectives based on a seed number
+function getSeededObjectives(seed) {
+  // Mulberry32 seeded RNG
+  let state = seed
+  const rng = function() {
+    state |= 0
+    state = state + 0x6D2B79F5 | 0
+    let t = Math.imul(state ^ state >>> 15, 1 | state)
+    t = t + Math.imul(t ^ t >>> 7, 61 | t) ^ t
+    return ((t ^ t >>> 14) >>> 0) / 4294967296
+  }
+  return getRandomObjectives(rng)
 }
 
 // Get all cards from a deck
@@ -188,6 +203,7 @@ export {
   OBJECTIVE_DECKS,
   getRandomCardFromDeck,
   getRandomObjectives,
+  getSeededObjectives,
   getDeckCards,
   getDeckInfo,
 }
