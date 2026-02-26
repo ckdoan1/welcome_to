@@ -578,3 +578,360 @@
   }
 }
 
+/* Instructions Button */
+.instructions-btn {
+  background: transparent;
+  border: none;
+  color: #6b6b80;
+  cursor: pointer;
+  font-size: 1.2rem;
+  padding: 0;
+  margin-left: 0.5rem;
+  transition: all 0.2s ease;
+  vertical-align: middle;
+}
+
+.instructions-btn:hover {
+  color: #ff6b5b;
+}
+
+/* Instructions Modal */
+.instructions-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.6);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  padding: 2rem;
+  animation: fadeIn 0.2s ease;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+.instructions-modal {
+  background: white;
+  border-radius: 20px;
+  max-width: 700px;
+  width: 100%;
+  max-height: 85vh;
+  overflow-y: auto;
+  padding: 2rem;
+  position: relative;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+  animation: slideUp 0.3s ease;
+}
+
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.instructions-close {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  background: #f5f0e8;
+  border: none;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  cursor: pointer;
+  font-size: 1.2rem;
+  color: #6b6b80;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s ease;
+}
+
+.instructions-close:hover {
+  background: #ff6b5b;
+  color: white;
+}
+
+.instructions-title {
+  font-family: 'Outfit', sans-serif;
+  font-size: 1.8rem;
+  font-weight: 700;
+  color: #1a1a2e;
+  margin-bottom: 1.5rem;
+  padding-right: 2rem;
+}
+
+.instructions-content {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.instructions-tabs {
+  display: flex;
+  gap: 0.5rem;
+  margin-bottom: 1rem;
+}
+
+.instructions-tab {
+  flex: 1;
+  padding: 0.75rem 1rem;
+  border: 2px solid #e5e5e5;
+  background: #f9f7f4;
+  border-radius: 8px;
+  font-family: 'Outfit', sans-serif;
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: #6b6b80;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+}
+
+.instructions-tab:hover {
+  border-color: #ff6b5b;
+  color: #ff6b5b;
+}
+
+.instructions-tab.active {
+  background: #ff6b5b;
+  border-color: #ff6b5b;
+  color: white;
+}
+
+.instructions-tab i {
+  font-size: 0.9rem;
+}
+
+.instructions-tab-content {
+  min-height: 200px;
+}
+
+.instructions-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.instructions-group-title {
+  font-family: 'Outfit', sans-serif;
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: #1a1a2e;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  padding-bottom: 0.5rem;
+  border-bottom: 2px solid #ff6b5b;
+  margin: 0;
+}
+
+.instruction-section {
+  background: #f9f7f4;
+  border-radius: 12px;
+  padding: 1rem 1.25rem;
+  border-left: 4px solid #d4c4b0;
+}
+
+.instruction-section:has(.icon-surveyor) { border-left-color: #6b7280; }
+.instruction-section:has(.icon-landscaper) { border-left-color: #16a34a; }
+.instruction-section:has(.icon-pool) { border-left-color: #0891b2; }
+.instruction-section:has(.icon-realestate) { border-left-color: #9333ea; }
+.instruction-section:has(.icon-temp) { border-left-color: #ea580c; }
+.instruction-section:has(.bis-text) { border-left-color: #dc2626; }
+.instruction-section:has(.icon-objectives) { border-left-color: #d97706; }
+.instruction-section:has(.icon-refusal) { border-left-color: #dc2626; }
+.instruction-section:has(.icon-gameend) { border-left-color: #1a1a2e; }
+.instruction-section:has(.icon-house) { border-left-color: #8b7355; }
+.instruction-section:has(.icon-numbers) { border-left-color: #8b5e3c; }
+.instruction-section:has(.icon-scoring) { border-left-color: #2563eb; }
+
+.scoring-list {
+  margin: 0.5rem 0 0 0;
+  padding-left: 0;
+  list-style: none;
+}
+
+.scoring-list li {
+  font-family: 'Outfit', sans-serif;
+  font-size: 0.9rem;
+  color: #4a4a5a;
+  line-height: 1.6;
+  display: flex;
+  align-items: flex-start;
+  gap: 0.5rem;
+  margin-bottom: 0.25rem;
+}
+
+.scoring-list li > i,
+.scoring-list li > .bis-text-small {
+  width: 1rem;
+  min-width: 1rem;
+  flex-shrink: 0;
+  text-align: center;
+  margin-top: 0.2rem;
+}
+
+.scoring-list li > .bis-text-small {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.scoring-list li > span:last-child {
+  flex: 1;
+}
+
+.scoring-list li strong {
+  color: #1a1a2e;
+}
+
+.scoring-note {
+  margin-top: 0.75rem;
+  font-style: italic;
+  font-size: 0.85rem;
+  color: #6b6b80;
+}
+
+.instructions-footer {
+  margin-top: 1.5rem;
+  padding-top: 1rem;
+  border-top: 1px solid #e5e5e5;
+  text-align: center;
+}
+
+.official-rules-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: #dc2626;
+  color: white;
+  text-decoration: none;
+  padding: 0.75rem 1.25rem;
+  border-radius: 8px;
+  font-family: 'Outfit', sans-serif;
+  font-size: 0.95rem;
+  font-weight: 600;
+  transition: all 0.2s ease;
+}
+
+.official-rules-link:hover {
+  background: #b91c1c;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(220, 38, 38, 0.3);
+}
+
+.official-rules-link i {
+  font-size: 1.1rem;
+}
+
+.instruction-section h3 {
+  font-family: 'Outfit', sans-serif;
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: #1a1a2e;
+  margin-bottom: 0.5rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.instruction-section h3 i {
+  font-size: 1rem;
+}
+
+/* Icon colors matching game theme */
+.icon-house { color: #8b7355; }
+.icon-numbers { color: #8b5e3c; }
+.icon-surveyor { color: #6b7280; }
+.icon-landscaper { color: #16a34a; }
+.icon-pool { color: #0891b2; }
+.icon-realestate { color: #9333ea; }
+.icon-temp { color: #ea580c; }
+.icon-objectives { color: #d97706; }
+.icon-refusal { color: #dc2626; }
+.icon-gameend { color: #1a1a2e; }
+.icon-scoring { color: #2563eb; }
+
+.instruction-section h3 .bis-text {
+  background: #dc2626;
+  color: white;
+  padding: 2px 6px;
+  border-radius: 4px;
+  font-size: 0.8rem;
+  font-weight: 800;
+}
+
+.bis-text-small {
+  background: #dc2626;
+  color: white;
+  padding: 2px 3px;
+  border-radius: 3px;
+  font-size: 0.6rem;
+  font-weight: 800;
+  font-family: 'Outfit', sans-serif;
+  line-height: 1;
+}
+
+.instruction-section p {
+  font-family: 'Outfit', sans-serif;
+  font-size: 0.95rem;
+  color: #4a4a5a;
+  line-height: 1.5;
+  margin: 0;
+}
+
+.steps-list {
+  margin: 0.75rem 0;
+  padding-left: 1.5rem;
+  font-family: 'Outfit', sans-serif;
+  font-size: 0.95rem;
+  color: #4a4a5a;
+  line-height: 1.8;
+}
+
+.steps-list li {
+  margin-bottom: 0.25rem;
+}
+
+.step-tag {
+  font-size: 0.7rem;
+  font-weight: 700;
+  padding: 2px 6px;
+  border-radius: 4px;
+  margin-left: 0.5rem;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.step-tag.mandatory {
+  background: #fef2f2;
+  color: #dc2626;
+  border: 1px solid #fecaca;
+}
+
+.step-tag.optional {
+  background: #f0fdf4;
+  color: #16a34a;
+  border: 1px solid #bbf7d0;
+}
+
+.step-note {
+  margin-top: 0.75rem !important;
+  font-style: italic;
+  color: #6b7280 !important;
+}
+

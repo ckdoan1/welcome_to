@@ -143,6 +143,95 @@
   border-color: #fdba74;
 }
 
+.construction-input {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  border: 2px solid #1a1a2e;
+  background: white;
+  font-family: 'Outfit', sans-serif;
+  font-size: 1rem;
+  font-weight: 600;
+  text-align: center;
+  color: #1a1a2e;
+  outline: none;
+  transition: border-color 0.2s ease;
+}
+
+.construction-input:focus {
+  border-color: #1a1a2e;
+  box-shadow: 0 0 0 2px rgba(26, 26, 46, 0.2);
+}
+
+.construction-tooltip-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+  margin-right: 8px;
+}
+
+.construction-info-icon {
+  font-size: 1rem;
+  color: #ea580c;
+  cursor: help;
+  transition: color 0.2s ease;
+}
+
+.construction-info-icon:hover {
+  color: #c2410c;
+}
+
+.construction-tooltip {
+  position: absolute;
+  bottom: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  background: #1a1a2e;
+  color: white;
+  padding: 8px 12px;
+  border-radius: 8px;
+  font-family: 'Outfit', sans-serif;
+  font-size: 0.8rem;
+  white-space: nowrap;
+  opacity: 0;
+  visibility: hidden;
+  transition: all 0.2s ease;
+  margin-bottom: 8px;
+  z-index: 10;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+.construction-tooltip::after {
+  content: '';
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  border: 6px solid transparent;
+  border-top-color: #1a1a2e;
+}
+
+.construction-tooltip-wrapper:hover .construction-tooltip {
+  opacity: 1;
+  visibility: visible;
+}
+
+.tooltip-row {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 2px 0;
+}
+
+.tooltip-place {
+  font-weight: 600;
+  color: #fdba74;
+}
+
+.tooltip-points {
+  font-weight: 700;
+}
+
 .score-inputs.bis {
   background: #fee2e2;
   border-color: #fca5a5;

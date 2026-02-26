@@ -27,13 +27,14 @@ const REAL_ESTATE_SCORES = {
   6: [6, 7, 8, 10, 12],
 }
 
-function Score({ row1Parks = [], row2Parks = [], row3Parks = [], activePools = 0 }) {
+function Score({ row1Parks = [], row2Parks = [], row3Parks = [], activePools = 0, gameMode = 'solo' }) {
   // Section 1 (Objectives): 3 inputs that sum to a total
   const [section1, setSection1] = useState(['', '', ''])
   const [section1Total, setSection1Total] = useState(0)
 
   // Section 4 (Construction/Temp Agency): track clicked buttons
   const [constructionClicked, setConstructionClicked] = useState(Array(9).fill(false))
+  const [constructionManualTotal, setConstructionManualTotal] = useState('0')
 
   // Section 6 (BIS): track how many BIS used
   const [bisCount, setBisCount] = useState(0)
@@ -115,7 +116,11 @@ function Score({ row1Parks = [], row2Parks = [], row3Parks = [], activePools = 0
   }
 
   const constructionCount = constructionClicked.filter(Boolean).length
-  const constructionTotal = constructionCount >= 6 ? 7 : 0
+  // In solo mode: 7 points if 6+ checked, otherwise 0
+  // In multiplayer mode: use manual input
+  const constructionTotal = gameMode === 'solo'
+    ? (constructionCount >= 6 ? 7 : 0)
+    : (parseInt(constructionManualTotal) || 0)
 
   // Calculate park score based on clicked parks
   const calculateParkScore = (activeParks, config) => {
@@ -213,9 +218,29 @@ function Score({ row1Parks = [], row2Parks = [], row3Parks = [], activePools = 0
           ))}
         </div>
         <div className="score-total-wrapper construction">
-          <div className="score-total">
-            <span className="total-value">{constructionTotal}</span>
-          </div>
+          {gameMode === 'solo' ? (
+            <div className="score-total">
+              <span className="total-value">{constructionTotal}</span>
+            </div>
+          ) : (
+            <>
+              <div className="construction-tooltip-wrapper">
+                <i className="fa-solid fa-circle-info construction-info-icon"></i>
+                <div className="construction-tooltip">
+                  <div className="tooltip-row"><span className="tooltip-place">1st</span><span className="tooltip-points">7 pts</span></div>
+                  <div className="tooltip-row"><span className="tooltip-place">2nd</span><span className="tooltip-points">4 pts</span></div>
+                  <div className="tooltip-row"><span className="tooltip-place">3rd</span><span className="tooltip-points">1 pt</span></div>
+                </div>
+              </div>
+              <input
+                type="text"
+                className="score-input construction-input"
+                value={constructionManualTotal}
+                onChange={(e) => setConstructionManualTotal(e.target.value.replace(/[^0-9]/g, ''))}
+                placeholder=""
+              />
+            </>
+          )}
         </div>
       </div>
 

@@ -224,6 +224,10 @@ function App() {
   const [approvedObjectives, setApprovedObjectives] = useState({ n1: false, n2: false, n3: false })
   const [metObjectives, setMetObjectives] = useState({ n1: false, n2: false, n3: false })
 
+  // Instructions modal
+  const [showInstructions, setShowInstructions] = useState(false)
+  const [instructionsTab, setInstructionsTab] = useState('overview')
+
   const pickNewObjectives = () => {
     setObjectives(getRandomObjectives())
     setApprovedObjectives({ n1: false, n2: false, n3: false })
@@ -271,6 +275,13 @@ function App() {
         <div className="header-row">
           <div className="title-section">
             <h1 className="welcome-title">
+            <button
+                className="instructions-btn"
+                onClick={() => setShowInstructions(true)}
+                aria-label="Game Instructions"
+              >
+                <i className="fa-solid fa-circle-info"></i>
+              </button>
               <span className="wave"></span> Welcome to
             </h1>
             <input
@@ -401,7 +412,7 @@ function App() {
 
           <div className="objectives-section">
             <div className="objectives-header">
-              <p className="objectives-label">Objective Cards:</p>
+              <p className="objectives-label">City Plans:</p>
               <button className="new-objectives-btn" onClick={pickNewObjectives}>
                 New Objectives
               </button>
@@ -537,8 +548,143 @@ function App() {
             row2.filter(h => h.poolActive).length +
             row3.filter(h => h.poolActive).length
           }
+          gameMode={gameMode}
         />
       </div>
+
+      {/* Instructions Modal */}
+      {showInstructions && (
+        <div className="instructions-overlay" onClick={() => setShowInstructions(false)}>
+          <div className="instructions-modal" onClick={(e) => e.stopPropagation()}>
+            <button className="instructions-close" onClick={() => setShowInstructions(false)}>
+              <i className="fa-solid fa-xmark"></i>
+            </button>
+
+            <h2 className="instructions-title">How to Play Welcome To...</h2>
+
+            <div className="instructions-content">
+              {/* TABS */}
+              <div className="instructions-tabs">
+                <button
+                  className={`instructions-tab ${instructionsTab === 'overview' ? 'active' : ''}`}
+                  onClick={() => setInstructionsTab('overview')}
+                >
+                  <i className="fa-solid fa-house"></i> Overview
+                </button>
+                <button
+                  className={`instructions-tab ${instructionsTab === 'actions' ? 'active' : ''}`}
+                  onClick={() => setInstructionsTab('actions')}
+                >
+                  <i className="fa-solid fa-wand-magic-sparkles"></i> Actions
+                </button>
+                <button
+                  className={`instructions-tab ${instructionsTab === 'endgame' ? 'active' : ''}`}
+                  onClick={() => setInstructionsTab('endgame')}
+                >
+                  <i className="fa-solid fa-flag-checkered"></i> End Game
+                </button>
+              </div>
+
+              {/* TAB CONTENT */}
+              <div className="instructions-tab-content">
+                {instructionsTab === 'overview' && (
+                  <div className="instructions-group">
+                    <section className="instruction-section">
+                      <h3><i className="fa-solid fa-house icon-house"></i> How to Play</h3>
+                      <p>A game is played for several successive rounds. In each round, perform the following 5 steps in order:</p>
+                      <ol className="steps-list">
+                        <li>Flip 3 Construction cards</li>
+                        <li>Select a Number-Action combination</li>
+                        <li>Number a house <span className="step-tag mandatory">mandatory</span></li>
+                        <li>Use the Action <span className="step-tag optional">optional</span></li>
+                        <li>Validate a City Plan <span className="step-tag optional">optional</span></li>
+                      </ol>
+                      <p className="step-note">Numbers must always increase from left to right within each street.</p>
+                    </section>
+
+                    <section className="instruction-section">
+                      <h3><i className="fa-solid fa-ban icon-refusal"></i> Permit Refusal</h3>
+                      <p>If you cannot (or choose not to) write a number, you must take a Permit Refusal. Cross out one refusal box - these cost penalty points at game end.</p>
+                    </section>
+
+                    <a
+                      href="https://bluecocker.com/wp-content/uploads/2023/08/Rulebook-EN.pdf"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="official-rules-link"
+                    >
+                      <i className="fa-solid fa-file-pdf"></i>
+                      View Official Rulebook (PDF)
+                    </a>
+                  </div>
+                )}
+
+                {instructionsTab === 'actions' && (
+                  <div className="instructions-group">
+                    <section className="instruction-section">
+                      <h3><i className="fa-solid fa-xmarks-lines icon-surveyor"></i> Fence</h3>
+                      <p>Draw a fence between any two houses (numbered or not) in any street. Fences define housing estates - groups of neighboring houses between two fences. You can divide existing estates with new fences, unless already used to validate a City Plan.</p>
+                    </section>
+
+                    <section className="instruction-section">
+                      <h3><i className="fa-solid fa-coins icon-realestate"></i> Improvement</h3>
+                      <p>Increase the value of completed housing estates of a specific size (1-6 houses). Cross out one box in the chosen column, in ascending order. At game end, each complete estate of that size earns points equal to the lowest visible value in that column.</p>
+                    </section>
+
+                    <section className="instruction-section">
+                      <h3><i className="fa-solid fa-tree icon-landscaper"></i> Park</h3>
+                      <p>Cross out one park box in the same street where you wrote your number.</p>
+                    </section>
+
+                    <section className="instruction-section">
+                      <h3><i className="fa-solid fa-person-swimming icon-pool"></i> Pool</h3>
+                      <p>If you number a house with a pool symbol while using this action, circle the pool and cross out one pool box. You can number a pool house without this action, but you won't be able to build that pool later.</p>
+                    </section>
+
+                    <section className="instruction-section">
+                      <h3><i className="fa-solid fa-road-barrier icon-temp"></i> Temp Worker</h3>
+                      <p>Before writing your number, you may add or subtract 0, 1, or 2 from it (e.g., an 8 can become 6, 7, 8, 9, or 10). You can get 16-17 from 14-15, or 0 from 1-2 (but never below 0). Cross out one temp worker box regardless of whether you modified the number.</p>
+                    </section>
+
+                    <section className="instruction-section">
+                      <h3><span className="bis-text">BIS</span> Extension</h3>
+                      <p>Create a duplicate "Bis number" - copy any already-numbered house (including one just placed) to an empty house directly adjacent to it. Mark the copy with "B". Cross out one extension box in ascending order. You can create series like 4-5B-5-5B. Two identical Bis numbers can be separated by a fence. Costs penalty points at game end.</p>
+                    </section>
+                  </div>
+                )}
+
+                {instructionsTab === 'endgame' && (
+                  <div className="instructions-group">
+                    <section className="instruction-section">
+                      <h3><i className="fa-solid fa-trophy icon-objectives"></i> City Plans</h3>
+                      <p>The 3 Plan cards (N1, N2, N3) are city objectives requiring specific estate combinations. When you meet the conditions, validate it to score points. First to validate scores "Project" points; later players score "Approved" points. Once an estate validates a plan, draw a line over it - it cannot validate another plan or be divided by fences. You can validate multiple plans per round. If two players achieve the plan in the same round they both get the points.</p>
+                    </section>
+
+                    <section className="instruction-section">
+                      <h3><i className="fa-solid fa-flag-checkered icon-gameend"></i> Game End</h3>
+                      <p>The game ends after the current round when: (1) a player validates all 3 City Plans, (2) a player takes their third Permit Refusal, or (3) a player numbers all houses in all three streets.</p>
+                    </section>
+
+                    <section className="instruction-section scoring-section">
+                      <h3><i className="fa-solid fa-calculator icon-scoring"></i> Scoring</h3>
+                      <ul className="scoring-list">
+                        <li><i className="fa-solid fa-trophy icon-objectives"></i><span><strong>City Plans:</strong> Add up points from validated plans.</span></li>
+                        <li><i className="fa-solid fa-tree icon-landscaper"></i><span><strong>Parks:</strong> Take the lowest visible value of each street and add them.</span></li>
+                        <li><i className="fa-solid fa-person-swimming icon-pool"></i><span><strong>Pools:</strong> Write the lowest visible value in the pool section.</span></li>
+                        <li><i className="fa-solid fa-road-barrier icon-temp"></i><span><strong>Temp Workers:</strong> Most crossed boxes = 7 pts, 2nd = 4 pts, 3rd = 1 pt. No boxes crossed = 0 pts.</span></li>
+                        <li><i className="fa-solid fa-coins icon-realestate"></i><span><strong>Housing Estates:</strong> For each size (1-6), count complete estates × lowest visible value for that size.</span></li>
+                        <li><span className="bis-text-small">BIS</span><span><strong>Extensions:</strong> Subtract the lowest visible value (penalty).</span></li>
+                        <li><i className="fa-solid fa-ban icon-refusal"></i><span><strong>Permit Refusals:</strong> Subtract the lowest visible value (penalty).</span></li>
+                      </ul>
+                      <p className="scoring-note">Highest score wins! Ties broken by most complete estates.</p>
+                    </section>
+                  </div>
+                )}
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   )
 }
