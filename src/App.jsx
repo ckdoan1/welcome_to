@@ -611,6 +611,12 @@ function App() {
                       <p>If you cannot (or choose not to) write a number, you must take a Permit Refusal. Cross out one refusal box - these cost penalty points at game end.</p>
                     </section>
 
+                    <section className="instruction-section solo-section">
+                      <h3><i className="fa-solid fa-user icon-solo"></i> Solo Mode</h3>
+                      <p>Solo mode has a slight variation: instead of working with three pairs of cards, you draw three cards. Take one card for its <strong>number</strong>, one card for its <strong>action</strong>, and discard the third.</p>
+                      <p className="solo-card-note"><i className="fa-solid fa-star"></i> A special <strong>Solo Card</strong> is shuffled into the deck. When drawn, all City Plan bonuses switch from "Project" points to the lower "Approved" points for the rest of the game.</p>
+                    </section>
+
                     <a
                       href="https://bluecocker.com/wp-content/uploads/2023/08/Rulebook-EN.pdf"
                       target="_blank"

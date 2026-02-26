@@ -935,3 +935,34 @@
   color: #6b7280 !important;
 }
 
+.icon-solo { color: #7c3aed; }
+
+.solo-section {
+  background: #faf5ff;
+  border: 1px solid #e9d5ff;
+  border-radius: 8px;
+  padding: 1rem !important;
+}
+
+.solo-section p {
+  margin-bottom: 0.5rem;
+}
+
+.solo-section p:last-of-type {
+  margin-bottom: 0;
+}
+
+.solo-card-note {
+  background: #fef3c7;
+  border: 1px solid #fcd34d;
+  border-radius: 6px;
+  padding: 0.5rem 0.75rem;
+  margin-top: 0.5rem !important;
+  font-size: 0.9rem;
+}
+
+.solo-card-note i {
+  color: #d97706;
+  margin-right: 0.25rem;
+}
+
