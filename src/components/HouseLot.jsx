@@ -43,10 +43,10 @@ function HouseLot({
             className="house-lot-number"
             value={number || ''}
             onChange={(e) => {
-              const val = e.target.value.replace(/[^0-9]/g, '').slice(0, 1)
+              const val = e.target.value.replace(/[^0-9]/g, '').slice(0, 2)
               onNumberChange?.(val)
             }}
-            maxLength={1}
+            maxLength={2}
             inputMode="numeric"
             placeholder=""
           />
