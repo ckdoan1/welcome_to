@@ -114,10 +114,18 @@
 }
 
 .house-icon-btn:hover i {
+  color: #666;
+}
+
+.house-icon-btn.color-n1 i {
+  color: #dc2626;
+}
+
+.house-icon-btn.color-n2 i {
   color: #16a34a;
 }
 
-.house-icon-btn.active i {
-  color: #16a34a;
+.house-icon-btn.color-n3 i {
+  color: #2563eb;
 }
 

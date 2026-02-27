@@ -11,7 +11,7 @@ function HouseLot({
   onLeftFenceClick,
   rightFenceActive,
   onRightFenceClick,
-  houseActive,
+  houseColor,
   onHouseClick
 }) {
   return (
@@ -51,7 +51,7 @@ function HouseLot({
             placeholder=""
           />
           <button
-            className={`house-icon-btn ${houseActive ? 'active' : ''}`}
+            className={`house-icon-btn ${houseColor ? `color-${houseColor}` : ''}`}
             onClick={onHouseClick}
             aria-label="House"
           >

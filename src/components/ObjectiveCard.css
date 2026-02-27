@@ -45,23 +45,61 @@
   position: absolute;
   top: 8px;
   right: 8px;
+  z-index: 10;
 }
 
-.objective-check:hover {
+/* n1 = red */
+.objective-check.n1:hover {
+  border-color: #dc2626;
+  color: #dc2626;
+  background: #fee2e2;
+}
+
+.objective-check.n1.met {
+  background: #dc2626;
+  border-color: #dc2626;
+  color: white;
+}
+
+.objective-check.n1.met:hover {
+  background: #b91c1c;
+  border-color: #b91c1c;
+}
+
+/* n2 = green */
+.objective-check.n2:hover {
   border-color: #16a34a;
   color: #16a34a;
   background: #dcfce7;
 }
 
-.objective-check.met {
+.objective-check.n2.met {
   background: #16a34a;
   border-color: #16a34a;
   color: white;
 }
 
-.objective-check.met:hover {
+.objective-check.n2.met:hover {
   background: #15803d;
   border-color: #15803d;
+}
+
+/* n3 = blue */
+.objective-check.n3:hover {
+  border-color: #2563eb;
+  color: #2563eb;
+  background: #dbeafe;
+}
+
+.objective-check.n3.met {
+  background: #2563eb;
+  border-color: #2563eb;
+  color: white;
+}
+
+.objective-check.n3.met:hover {
+  background: #1d4ed8;
+  border-color: #1d4ed8;
 }
 
 .objective-requirements {

@@ -19,7 +19,7 @@ function ObjectiveCard({ card, deckInfo, isApproved = false, onClick, isClickabl
       <div className="objective-header">
         <span className="objective-deck">{deckInfo?.name}</span>
         <button
-          className={`objective-check ${isMet ? 'met' : ''}`}
+          className={`objective-check ${isMet ? 'met' : ''} ${deckInfo?.id || ''}`}
           onClick={handleCheckClick}
           aria-label="Mark objective as met"
         >

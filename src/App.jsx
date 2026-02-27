@@ -56,7 +56,7 @@ function App() {
       leftFenceActive: index === 0, // First fence always active
       rightFenceActive: index === 9, // Last fence always active
       poolActive: false,
-      houseActive: false
+      houseColor: null // null, 'n1' (red), 'n2' (green), 'n3' (blue)
     }))
   )
 
@@ -67,7 +67,7 @@ function App() {
       leftFenceActive: index === 0, // First fence always active
       rightFenceActive: index === 10, // Last fence always active
       poolActive: false,
-      houseActive: false
+      houseColor: null
     }))
   )
 
@@ -78,7 +78,7 @@ function App() {
       leftFenceActive: index === 0, // First fence always active
       rightFenceActive: index === 11, // Last fence always active
       poolActive: false,
-      houseActive: false
+      houseColor: null
     }))
   )
 
@@ -230,6 +230,9 @@ function App() {
   const [showInstructions, setShowInstructions] = useState(false)
   const [instructionsTab, setInstructionsTab] = useState('overview')
 
+  // Selected house color for painting
+  const [selectedHouseColor, setSelectedHouseColor] = useState(null)
+
   const pickNewObjectives = () => {
     setObjectives(getRandomObjectives())
     setApprovedObjectives({ n1: false, n2: false, n3: false })
@@ -293,29 +296,29 @@ function App() {
               onChange={(e) => setNeighbourhoodName(e.target.value)}
               placeholder=" "
             />
-            {gameMode === 'multiplayer' && (
+          </div>
+          {gameMode === 'multiplayer' && (
+            <div className="seed-section">
               <div className="seed-display">
                 <span className="seed-label">Seed:</span>
                 <span className="seed-value">{gameSeed}</span>
               </div>
-            )}
-          </div>
-          {gameMode === 'multiplayer' && (
-            <div className="seed-controls">
-              <input
-                type="text"
-                className="seed-input"
-                value={seedInput}
-                onChange={(e) => setSeedInput(e.target.value.replace(/[^0-9]/g, ''))}
-                placeholder="Enter seed"
-                onKeyDown={(e) => e.key === 'Enter' && handleSeedSubmit()}
-              />
-              <button className="seed-btn" onClick={handleSeedSubmit}>
-                <i className="fa-solid fa-check"></i>
-              </button>
-              <button className="seed-btn generate" onClick={handleGenerateNewSeed}>
-                <i className="fa-solid fa-dice"></i>
-              </button>
+              <div className="seed-controls">
+                <input
+                  type="text"
+                  className="seed-input"
+                  value={seedInput}
+                  onChange={(e) => setSeedInput(e.target.value.replace(/[^0-9]/g, ''))}
+                  placeholder="Enter seed"
+                  onKeyDown={(e) => e.key === 'Enter' && handleSeedSubmit()}
+                />
+                <button className="seed-btn" onClick={handleSeedSubmit}>
+                  <i className="fa-solid fa-check"></i>
+                </button>
+                <button className="seed-btn generate" onClick={handleGenerateNewSeed}>
+                  <i className="fa-solid fa-dice"></i>
+                </button>
+              </div>
             </div>
           )}
           <div className="game-mode-toggle">
@@ -415,41 +418,61 @@ function App() {
           <div className="objectives-section">
             <div className="objectives-header">
               <p className="objectives-label">City Plans:</p>
+              <div className="color-legend">
+                <button
+                  className={`color-btn n1 ${selectedHouseColor === 'n1' ? 'selected' : ''}`}
+                  onClick={() => setSelectedHouseColor(selectedHouseColor === 'n1' ? null : 'n1')}
+                >
+                  n1
+                </button>
+                <button
+                  className={`color-btn n2 ${selectedHouseColor === 'n2' ? 'selected' : ''}`}
+                  onClick={() => setSelectedHouseColor(selectedHouseColor === 'n2' ? null : 'n2')}
+                >
+                  n2
+                </button>
+                <button
+                  className={`color-btn n3 ${selectedHouseColor === 'n3' ? 'selected' : ''}`}
+                  onClick={() => setSelectedHouseColor(selectedHouseColor === 'n3' ? null : 'n3')}
+                >
+                  n3
+                </button>
+              </div>
               {gameMode === 'solo' && (
                 <button className="new-objectives-btn" onClick={pickNewObjectives}>
                   New Objectives
                 </button>
               )}
             </div>
-            <div className="objectives-display">
-              <ObjectiveCard
-                card={objectives.n1}
-                deckInfo={getDeckInfo('n1')}
-                isApproved={approvedObjectives.n1 || (gameMode === 'solo' && soloActivated)}
-                isClickable={gameMode === 'multiplayer'}
-                onClick={() => toggleObjectiveApproved('n1')}
-                isMet={metObjectives.n1}
-                onCheckClick={() => toggleObjectiveMet('n1')}
-              />
-              <ObjectiveCard
-                card={objectives.n2}
-                deckInfo={getDeckInfo('n2')}
-                isApproved={approvedObjectives.n2 || (gameMode === 'solo' && soloActivated)}
-                isClickable={gameMode === 'multiplayer'}
-                onClick={() => toggleObjectiveApproved('n2')}
-                isMet={metObjectives.n2}
-                onCheckClick={() => toggleObjectiveMet('n2')}
-              />
-              <ObjectiveCard
-                card={objectives.n3}
-                deckInfo={getDeckInfo('n3')}
-                isApproved={approvedObjectives.n3 || (gameMode === 'solo' && soloActivated)}
-                isClickable={gameMode === 'multiplayer'}
-                onClick={() => toggleObjectiveApproved('n3')}
-                isMet={metObjectives.n3}
-                onCheckClick={() => toggleObjectiveMet('n3')}
-              />
-            </div>
+              <div className="objectives-display">
+                <ObjectiveCard
+                  card={objectives.n1}
+                  deckInfo={getDeckInfo('n1')}
+                  isApproved={approvedObjectives.n1 || (gameMode === 'solo' && soloActivated)}
+                  isClickable={gameMode === 'multiplayer'}
+                  onClick={() => toggleObjectiveApproved('n1')}
+                  isMet={metObjectives.n1}
+                  onCheckClick={() => toggleObjectiveMet('n1')}
+                />
+                <ObjectiveCard
+                  card={objectives.n2}
+                  deckInfo={getDeckInfo('n2')}
+                  isApproved={approvedObjectives.n2 || (gameMode === 'solo' && soloActivated)}
+                  isClickable={gameMode === 'multiplayer'}
+                  onClick={() => toggleObjectiveApproved('n2')}
+                  isMet={metObjectives.n2}
+                  onCheckClick={() => toggleObjectiveMet('n2')}
+                />
+                <ObjectiveCard
+                  card={objectives.n3}
+                  deckInfo={getDeckInfo('n3')}
+                  isApproved={approvedObjectives.n3 || (gameMode === 'solo' && soloActivated)}
+                  isClickable={gameMode === 'multiplayer'}
+                  onClick={() => toggleObjectiveApproved('n3')}
+                  isMet={metObjectives.n3}
+                  onCheckClick={() => toggleObjectiveMet('n3')}
+                />
+              </div>
             {soloActivated && (
               <div className="solo-activated">
                 <i className="fa-solid fa-house-circle-check"></i>
@@ -474,8 +497,14 @@ function App() {
                 onLeftFenceClick={() => updateRow1House(index, 'leftFenceActive', !house.leftFenceActive)}
                 rightFenceActive={house.rightFenceActive}
                 onRightFenceClick={() => updateRow1House(index, 'rightFenceActive', !house.rightFenceActive)}
-                houseActive={house.houseActive}
-                onHouseClick={() => updateRow1House(index, 'houseActive', !house.houseActive)}
+                houseColor={house.houseColor}
+                onHouseClick={() => {
+                  if (house.houseColor) {
+                    updateRow1House(index, 'houseColor', null)
+                  } else if (selectedHouseColor) {
+                    updateRow1House(index, 'houseColor', selectedHouseColor)
+                  }
+                }}
               />
             ))}
           </div>
@@ -502,8 +531,14 @@ function App() {
                 onLeftFenceClick={() => updateRow2House(index, 'leftFenceActive', !house.leftFenceActive)}
                 rightFenceActive={house.rightFenceActive}
                 onRightFenceClick={() => updateRow2House(index, 'rightFenceActive', !house.rightFenceActive)}
-                houseActive={house.houseActive}
-                onHouseClick={() => updateRow2House(index, 'houseActive', !house.houseActive)}
+                houseColor={house.houseColor}
+                onHouseClick={() => {
+                  if (house.houseColor) {
+                    updateRow2House(index, 'houseColor', null)
+                  } else if (selectedHouseColor) {
+                    updateRow2House(index, 'houseColor', selectedHouseColor)
+                  }
+                }}
               />
             ))}
           </div>
@@ -530,8 +565,14 @@ function App() {
                 onLeftFenceClick={() => updateRow3House(index, 'leftFenceActive', !house.leftFenceActive)}
                 rightFenceActive={house.rightFenceActive}
                 onRightFenceClick={() => updateRow3House(index, 'rightFenceActive', !house.rightFenceActive)}
-                houseActive={house.houseActive}
-                onHouseClick={() => updateRow3House(index, 'houseActive', !house.houseActive)}
+                houseColor={house.houseColor}
+                onHouseClick={() => {
+                  if (house.houseColor) {
+                    updateRow3House(index, 'houseColor', null)
+                  } else if (selectedHouseColor) {
+                    updateRow3House(index, 'houseColor', selectedHouseColor)
+                  }
+                }}
               />
             ))}
           </div>

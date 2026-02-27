@@ -193,6 +193,7 @@ function getDeckInfo(deckId) {
   const deck = OBJECTIVE_DECKS[deckId]
   if (!deck) return null
   return {
+    id: deckId,
     name: deck.name,
     difficulty: deck.difficulty,
     pointRange: deck.pointRange,
